@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import MainLayout from "./components/layouts/MainLayout";
+import SearchBar from "./components/fragments/SearchBar";
 
 interface PostsData {
   id: number;
@@ -67,33 +68,13 @@ export default function Home() {
       <h1 className="font-semibold text-lg">Home</h1>
 
       {/* Search Input */}
-      <div className="my-3">
-        <label htmlFor="search" className="text-sm font-semibold mr-3">
-          Search :
-        </label>
-        <input
-          type="text"
-          id="search"
-          className="border text-sm px-2 py-1 rounded-md shadow"
-          value={searchQuery}
-          onChange={onSearchChange}
-          onKeyDown={handleKeyDown}
-        />
-        <button
-          type="button"
-          onClick={handleSearchClick}
-          className="bg-black text-white font-semibold text-sm rounded-md px-2 py-1 ml-2 active:bg-slate-700"
-        >
-          Search
-        </button>
-        <button
-          type="button"
-          onClick={handleSearchClear}
-          className="bg-black text-white font-semibold text-sm rounded-md px-2 py-1 ml-2 active:bg-slate-700"
-        >
-          Clear
-        </button>
-      </div>
+      <SearchBar
+        onSearchChange={onSearchChange}
+        handleSearchClick={handleSearchClick}
+        handleSearchClear={handleSearchClear}
+        handleKeyDown={handleKeyDown}
+        searchQuery={searchQuery}
+      />
 
       {posts?.map((post) => (
         <div key={post.id} className="p-3 w-56 border rounded-md my-3 shadow">
