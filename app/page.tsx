@@ -8,6 +8,7 @@ interface PostsData {
   title: string;
   body: string;
   date: string;
+  isNew: boolean;
 }
 
 const postsData: PostsData[] = [
@@ -16,18 +17,35 @@ const postsData: PostsData[] = [
     title: "First Post",
     body: "This is the first post",
     date: "2023-01-01",
+    isNew: true,
   },
   {
     id: 2,
     title: "Second Post",
     body: "This is the second post",
     date: "2023-02-01",
+    isNew: true,
   },
   {
     id: 3,
     title: "Third Post",
     body: "This is the third post",
     date: "2023-03-01",
+    isNew: true,
+  },
+  {
+    id: 4,
+    title: "Fourth Post",
+    body: "This is the fourth post",
+    date: "2023-04-01",
+    isNew: false,
+  },
+  {
+    id: 5,
+    title: "Fifth Post",
+    body: "This is the fifth post",
+    date: "2023-05-01",
+    isNew: true,
   },
 ];
 
@@ -76,13 +94,20 @@ export default function Home() {
         searchQuery={searchQuery}
       />
 
-      {posts?.map((post) => (
-        <div key={post.id} className="p-3 w-56 border rounded-md my-3 shadow">
-          <h2 className="font-semibold text-lg">{post.title}</h2>
-          <p>{post.body}</p>
-          <p className="text-sm text-slate-500">{post.date}</p>
-        </div>
-      ))}
+      {posts
+        ?.filter((post) => post.isNew)
+        .map((post) => {
+          return (
+            <div
+              key={post.id}
+              className="p-3 w-56 border rounded-md my-3 shadow"
+            >
+              <h2 className="font-semibold text-lg">{post.title}</h2>
+              <p>{post.body}</p>
+              <p className="text-sm text-slate-500">{post.date}</p>
+            </div>
+          );
+        })}
     </MainLayout>
   );
 }
