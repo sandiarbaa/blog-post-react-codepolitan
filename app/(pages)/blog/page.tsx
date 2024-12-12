@@ -1,5 +1,6 @@
 "use client";
 import MainLayout from "@/app/components/layouts/MainLayout";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 interface PostInterface {
@@ -18,9 +19,14 @@ const BlogPage = () => {
 
   return (
     <MainLayout>
-      <h1>Blog</h1>
+      <h1 className="font-semibold text-lg">Blog</h1>
       {posts?.map((post) => (
-        <div key={post.id}>- {post.title}</div>
+        <div key={post.id}>
+          -{" "}
+          <Link href={`/blog/${post.id}`} className="hover:underline">
+            {post.title}
+          </Link>
+        </div>
       ))}
     </MainLayout>
   );
