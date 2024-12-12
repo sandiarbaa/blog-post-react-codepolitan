@@ -57,6 +57,11 @@ export default function Home() {
     }
   };
 
+  const handleSearchClear = () => {
+    setSearchQuery("");
+    setPosts(postsData);
+  };
+
   return (
     <MainLayout>
       <h1 className="font-semibold text-lg">Home</h1>
@@ -81,9 +86,16 @@ export default function Home() {
         >
           Search
         </button>
+        <button
+          type="button"
+          onClick={handleSearchClear}
+          className="bg-black text-white font-semibold text-sm rounded-md px-2 py-1 ml-2 active:bg-slate-700"
+        >
+          Clear
+        </button>
       </div>
 
-      {posts.map((post) => (
+      {posts?.map((post) => (
         <div key={post.id} className="p-3 w-56 border rounded-md my-3 shadow">
           <h2 className="font-semibold text-lg">{post.title}</h2>
           <p>{post.body}</p>
