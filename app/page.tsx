@@ -31,21 +31,29 @@ const postsData: PostsData[] = [
 ];
 
 export default function Home() {
-  const [posts, setPosts] = useState<PostsData[]>(postsData);
-  const [searchQuery, setSearchQuery] = useState<string>("");
+  const [posts, setPosts] = useState<PostsData[]>(postsData); // data asli posts
+  const [searchQuery, setSearchQuery] = useState<string>(""); // keyword pencarian
 
+  // untuk mengisi keyword pencarian
   const onSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const query = e.target.value;
-    setSearchQuery(query);
+    setSearchQuery(e.target.value);
+  };
 
-    // Filter berdasarkan query
-    if (query === "") {
-      setPosts(postsData); // Reset jika query kosong
+  // filter berdasarkan keyword pencarian
+  const handleSearchClick = () => {
+    if (searchQuery.trim() === "") {
+      setPosts(postsData); // Reset ke semua data jika input kosong
     } else {
       const filteredPosts: PostsData[] = postsData.filter((post) =>
-        post.title.toLowerCase().includes(query.toLowerCase())
+        post.title.toLowerCase().includes(searchQuery.toLowerCase())
       );
       setPosts(filteredPosts);
+    }
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      handleSearchClick(); // Panggil fungsi pencarian saat Enter ditekan
     }
   };
 
@@ -64,10 +72,11 @@ export default function Home() {
           className="border text-sm px-2 py-1 rounded-md shadow"
           value={searchQuery}
           onChange={onSearchChange}
+          onKeyDown={handleKeyDown}
         />
         <button
           type="button"
-          // onClick={}
+          onClick={handleSearchClick}
           className="bg-black text-white font-semibold text-sm rounded-md px-2 py-1 ml-2 active:bg-slate-700"
         >
           Search
